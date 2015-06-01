@@ -1,0 +1,72 @@
+<marlin>
+  <!--##########################################
+      #                                        #
+      #     Steering file for Trivent_v0.3     #
+      #                                        #
+      ##########################################-->
+  <execute>
+    <processor name="MyTriventProc"/>
+    <!-- <processor name="myrootMaker"/> -->
+  </execute>
+
+
+  <global>
+    <!-- <parameter name="LCIOInputFiles"> -->
+    <!--   /home/antoine/Documents/CALICE/DataAnalysis/DHCAL_726371_SO.slcio -->
+    <!-- /home/antoine/Documents/CALICE/DataAnalysis/data/DHCAL_726414_SO.slcio -->
+    <!-- /home/antoine/Documents/CALICE/DataAnalysis/data/DHCAL_726254_I0_0s.slcio -->
+    <!-- </parameter> -->
+    <parameter name="LCIOInputFiles">
+      /Users/antoine/CALICE/DataAnalysis/data/DHCAL_728581_SO.slcio
+    </parameter>
+
+    <!-- <parameter name="LCIOInputFiles"> -->
+    <!--   /home/antoine/Documents/CALICE/DataAnalysis/data/DHCAL_726255_SO.slcio -->
+    <!-- </parameter> -->
+
+     <parameter name="MaxRecordNumber" value="100"/>
+    <parameter name="SkipNEvents" value="1"/>
+    <parameter name="SupressCheck" value="false"/>
+  </global>
+
+  <!-- <processor name="myrootMaker" type="rootMaker"> -->
+  <!--   <parameter name="HitCollectionName" type="StringVec">TCaloHitRoot </parameter> -->
+  <!--   <parameter name="DIFMapping" type="string"> -->
+  <!--     /opt/ilcsoft/v01-17-06/Trivent/DifGeom/Slot1_39_Geom.txt -->
+  <!--   </parameter> -->
+  <!--   <parameter name="OverwriteFile" value="1"/> -->
+  <!--   <parameter name="TreeName" value="DHCAL"/> -->
+  <!--   <parameter name="TreeOutputFile" value="./TB_Run726254_TEST.root"/> -->
+  <!-- </processor> -->
+
+  <processor name="MyTriventProc" type="TriventProc">
+    <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT"> MESSAGE DEBUG5 </parameter>
+
+
+    <parameter name="DIFMapping" type="string">
+      /opt/ilcsoft/v01-17-06/Trivent/DifGeom/Slot1_39_Geom.txt
+    </parameter>
+    <parameter name="HitCollectionName" type="StringVec">SDHCAL_HIT</parameter>
+    <parameter name="GAIN_CORRECTION_MODE" type="bool">false </parameter>
+    <parameter name="electronic_noise_cut" type="int">100000 </parameter>
+    <parameter name="layerGap" type="double"> 2.8 </parameter>
+    <parameter name="LayerCut" type="int">3 </parameter>
+    <parameter name="noiseCut" type="int">100 </parameter>
+    <parameter name="timeWin" type="int">2 </parameter>
+
+    <parameter name="ROOTOutputFile" type="string">./output/TEST728581_Cerenkov.root </parameter>
+    <parameter name="LCIOOutputFile" type="string">./output/TEST728581_Cerenkov.slcio </parameter>
+    <!-- <parameter name="OutputFile" type="string">./TEST255</parameter> -->
+
+    <!-- <parameter name="LCIOOutputFile" type="string">./TEST255.slcio </parameter> -->
+    <!-- <parameter name="RootFileName" type="string">./TEST255.root </parameter> -->
+
+  </processor>
+
+  <!-- ./TB_Run726254.slcio -->
+
+  <processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">
+    <parameter name="LCIOWriteMode" type="string">WRITE_NEW </parameter>
+  </processor>
+
+</marlin>

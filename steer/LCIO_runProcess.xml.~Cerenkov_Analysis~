@@ -1,0 +1,57 @@
+<marlin>
+  <!--##########################################
+      #                                        #
+      #     Steering file for Trivent_v0.3     #
+      #                                        #
+      ##########################################-->
+  <execute>
+    <processor name="MyTriventProc"/>
+    <!-- <processor name="myrootMaker"/> -->
+  </execute>
+  
+  
+  <global>
+    <!-- <parameter name="LCIOInputFiles"> -->
+    <!--   /home/antoine/Documents/CALICE/DataAnalysis/DHCAL_726371_SO.slcio -->
+    <!-- </parameter> -->
+    <parameter name="LCIOInputFiles">
+      /home/antoine/Documents/CALICE/DataAnalysis/data/DHCAL_726255_SO.slcio
+    </parameter>
+    <parameter name="MaxRecordNumber" value="20"/>
+    <parameter name="SkipNEvents" value="1"/>
+    <parameter name="SupressCheck" value="false"/>
+  </global>
+
+  <!-- <processor name="myrootMaker" type="rootMaker"> -->
+  <!--   <parameter name="HitCollectionName" type="StringVec">TCaloHitRoot </parameter> -->
+  <!--   <parameter name="DIFMapping" type="string"> -->
+  <!--     /opt/ilcsoft/v01-17-06/Trivent/DifGeom/Slot1_39_Geom.txt -->
+  <!--   </parameter> -->
+  <!--   <parameter name="OverwriteFile" value="1"/> -->
+  <!--   <parameter name="TreeName" value="DHCAL"/> -->
+  <!--   <parameter name="TreeOutputFile" value="./TB_Run726254_TEST.root"/> -->
+  <!-- </processor> -->
+  
+  <processor name="MyTriventProc" type="TriventProc">
+    <parameter name="DIFMapping" type="string">
+      /opt/ilcsoft/v01-17-06/Trivent/DifGeom/Slot1_39_Geom.txt
+    </parameter>
+    <parameter name="HitCollectionName" type="StringVec">SDHCAL_HIT</parameter>
+    <parameter name="GAIN_CORRECTION_MODE" type="bool">false </parameter>
+    <parameter name="electronic_noise_cut" type="int">100000 </parameter>
+    <parameter name="layerGap" type="double"> 2.8 </parameter>
+    <parameter name="LayerCut" type="int">3 </parameter>
+    <parameter name="noiseCut" type="int">10 </parameter>
+    <parameter name="timeWin" type="int">2 </parameter>
+    <parameter name="LCIOOutputFile" value="./TB_Run726414.slcio"/>
+  </processor>
+
+  <processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">
+    <parameter name="LCIOWriteMode" type="string">WRITE_NEW </parameter>
+  </processor>
+  
+</marlin>
+
+
+
+

@@ -1,0 +1,10 @@
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/DIFSlowControl.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/DIFUnpacker.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/GainCorrect.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/HistogramHendler.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/Mapping.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/SDHCAL_RawData_Processor.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/./include/tinyxml.h
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/lib/libTrivent.0.4.1.dylib
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/lib/libTrivent.0.4.dylib
+/Users/antoine/CALICE/DataAnalysis/Trivent4HEP/lib/libTrivent.dylib

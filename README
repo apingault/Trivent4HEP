@@ -1,0 +1,80 @@
+WARNING : OBSERVED problems : some combinations of MARLIN_DLL causes a Std9bad_alloc crash.
+It is not clear which combination causes the problem.
+For ilcsoft v01-14, if you put everything that comes from the init_ilcsoft.sh but MarlinReco, it runs.
+If you put Trivent+MarlinReco, it runs.
+If you put Trivent+MarlinReco+MarlinPandora, it crashes.
+
+This problem has been seen on the IPNL installation of ilcsoft v01-14.
+It hasn't be possible to check that on other installations.
+
+
+WARNING 2 : attempt to use LCIOOutputProcessor in the streamout.xml steering file leads to the following Marlin crash : 
+ ***********************************************
+ A runtime error occured - (uncaught exception):
+      lcio::IOException: [SIOWriter::writeEvent] couldn't write event header to stream: _scratch_RawHits_slcio0
+ Marlin will have to be terminated, sorry.
+ ***********************************************
+
+INFO : There are 2 subdirectories for the source code : 
+-- EventBuilder is intended for those processors that runs on LCIO files with a 'trigger' for each LCEvent.
+-- SDHCALReco is intended for those processors that runs on LCIO files with a 'particle' or a 'standard event' for each LCEvent. 
+The processors in SDHCALReco can eventually be run on a Mokka output.
+
+
+NOTE POUR LES DEVELOPPEURS :
+
+1) Je n'ai pas mis le répertoire DruidGeom en attendant de savoir 
+comment il est construit.
+
+2) Je n'ai pas récupérer le script loadLDD.sh pour le moment mais voir 
+dans le README pour les instructions.
+
+3) Les steering files pour Marlin sont dans un répertoire steer. Il y a aussi un exemple de script en bash pour trivent.
+
+4) Il va falloir générer les dictionnaires ROOT dans le processus d'installation à terme.
+
+5) Pour la partie streamout : il faut la verifier avec le 'streamout original'.
+   Crash quand on essaie d'ecrire le fichier de collections de RawCalorimeterHit (voir WARNING 2 ci-dessus)
+
+END NOTE
+
+A) INSTALLATION 
+
+A.1) Automated installation
+
+Assuming <ILCDIR> is the directory where standard ilcsoft is installed, do :
+source <ILCDIR>/init_ilcsoft.sh
+
+For a first installation or a complete reinstallation, run ./script/build.sh Full
+For a simple recompilation, run ./script/build.sh
+
+A.2) Manual installation 
+
+Assuming <ILCDIR> is the directory where standard ilcsoft is installed, do :
+source <ILCDIR>/init_ilcsoft.sh
+cd SDHCALReco/src
+rootcint rootDict.cc -c -I../../EventBuilder/include/ ../include/TCaloHitRoot.hh ../include/TRawCaloHitRoot.hh
+cd ../..
+mkdir build
+cd build
+cmake -C ${ILCSOFT}/ILCSoft.cmake ..
+make install
+
+
+B) running 
+
+Assuming you're in the Trivent directory 
+
+Ideally you would like to do 
+  export MARLIN_DLL=${MARLIN_DLL}:$PWD/lib/libTrivent.so:$PWD/lib/libTriventReco.so
+But if you get Std9Bad_alloc crash, do 
+  export MARLIN_DLL=$PWD/lib/libTrivent.so:$PWD/lib/libTriventReco.so
+
+Then 
+Marlin steer/LCIO_runProcess.xml   //Streamout --> Trivent
+Marlin steer/LCIO_streamout_trivent_runProcess.xml //Raw data --> Trivent
+
+(Don't forget to change the input file in LCIO_runProcess.xml)
+
+Similar for other steering files.
+
